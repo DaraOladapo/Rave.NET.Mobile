@@ -26,9 +26,9 @@ namespace Rave.NET.Mobile
 
         private static RaveConfig raveConfig = new RaveConfig(PbKey, ScKey, false);
         private static Card card = new Card(CardNumber, ExpiryMonth, ExpiryYear, CVV);
-        private static CardParams payload = new CardParams(PbKey, ScKey, "Anonymous", "Tester", "user@example.com", 50000, "NGN", card) { TxRef = tranxRef }; 
+        private static CardParams payload = new CardParams(PbKey, ScKey, "Anonymous", "Tester", "user@example.com", 50000, "NGN", card) { TxRef = tranxRef };
         private static ChargeCard cardCharge = new ChargeCard(raveConfig);
-
+        API.RaveResponse<ResponseData> chargeResult = new API.RaveResponse<ResponseData>();
         public MainPage()
         {
             InitializeComponent();
@@ -38,24 +38,45 @@ namespace Rave.NET.Mobile
             OTPEntryPanel.IsVisible = false;
         }
 
-        private void OnSubmitCard(object sender, EventArgs e)
+        private async void OnSubmitCard(object sender, EventArgs e)
         {
             CardEntryPanel.IsVisible = false;
-            PINEntryPanel.IsVisible = true;
             OTPEntryPanel.IsVisible = false;
+            chargeResult = await cardCharge.Charge(payload);
+            if (chargeResult.Message == "AUTH_SUGGESTION" && chargeResult.Data.SuggestedAuth == "PIN")
+            {
+                PINEntryPanel.IsVisible = true;
+            }
+            else
+            {
+                await DisplayAlert(chargeResult.Status, chargeResult.Message, "OK");
+            }
         }
-        private void OnSubmitPIN(object sender, EventArgs e)
+        private async void OnSubmitPIN(object sender, EventArgs e)
         {
             CardEntryPanel.IsVisible = false;
             PINEntryPanel.IsVisible = false;
-            OTPEntryPanel.IsVisible = true;
+            payload.Pin = "3310";
+            payload.SuggestedAuth = "PIN";
+            chargeResult = await cardCharge.Charge(payload);
+            if (chargeResult.Message == "AUTH_SUGGESTION" && chargeResult.Data.SuggestedAuth == "OTP")
+            {
+                OTPEntryPanel.IsVisible = true;
+            }
+            else
+            {
+                await DisplayAlert(chargeResult.Status, chargeResult.Message, "OK");
+            }
         }
 
 
         private async void OnSubmitOTP(object sender, EventArgs e)
         {
-            var chargeResult = await cardCharge.Charge(payload);
-            //await DisplayAlert(chargeResult.Status);
+            payload.SuggestedAuth = "OTP";
+            chargeResult = await cardCharge.Charge(payload);
+            payload.Otp = "12345";
+            chargeResult = await cardCharge.Charge(payload);
+            await DisplayAlert(chargeResult.Status, chargeResult.Message, "OK");
         }
     }
 }
