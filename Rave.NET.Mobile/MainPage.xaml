@@ -1,23 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Rave.NET.Mobile.MainPage">
-    <Grid>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="CardEntryPanel" d:IsVisible="False">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" x:Class="Rave.NET.Mobile.MainPage">
+    <Grid >
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="CardEntryPanel" d:IsVisible="true">
             <Label Text="Flutterwave Card Test" FontSize="Subtitle" Margin="4"/>
-            <!--<Entry Placeholder="1234-1234-1234-1234" HorizontalOptions="Fill" Margin="4" Keyboard="Numeric" x:Name="CardNumberEntry"/>
-            <Grid ColumnDefinitions="3*,2*">
-                <Entry Placeholder="MM/YY" HorizontalOptions="Fill" Margin="4" Grid.Column="0" Keyboard="Numeric" x:Name="ExpiryEntry"/>
-                <Entry Placeholder="CVV" HorizontalOptions="Fill" Margin="4" Grid.Column="1" Keyboard="Numeric" x:Name="CVVEntry"/>
-            </Grid>-->
+            <Entry Placeholder="1234-1234-1234-1234" HorizontalOptions="Fill" Margin="4" Keyboard="Numeric" Text="{x:Binding CardNo}" x:Name="CardNumberEntry"/>
+            <Grid ColumnDefinitions="3*,2*,2*">
+                <Entry Placeholder="MM" HorizontalOptions="Fill" Margin="4" Grid.Column="0" Keyboard="Numeric" x:Name="ExpiryMonthEntry"/>
+                <Entry Placeholder="YY" HorizontalOptions="Fill" Margin="4" Grid.Column="1" Keyboard="Numeric" x:Name="ExpiryYearEntry"/>
+                <Entry Placeholder="CVV" HorizontalOptions="Fill" Margin="4" Grid.Column="3" Keyboard="Numeric" Text="{x:Binding Cvv}" x:Name="CVVEntry"/>
+            </Grid>
             <Button Text="Submit Card" Clicked="OnSubmitCard"/>
         </StackLayout>
         <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="PINEntryPanel" d:IsVisible="False">
             <Label Text="Flutterwave Card Test - PIN" FontSize="Subtitle" Margin="4"/>
-            <!--<Entry Placeholder="PIN" HorizontalOptions="Fill" Margin="4"  Keyboard="Numeric" x:Name="PINEntry"/>-->
+            <Entry Placeholder="PIN" HorizontalOptions="Fill" Margin="4"  Keyboard="Numeric" x:Name="PINEntry" Text="{x:Binding Pin}"/>
             <Button Text="Submit PIN" Clicked="OnSubmitPIN"/>
         </StackLayout>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="OTPEntryPanel">
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="OTPEntryPanel" d:IsVisible="false">
             <Label Text="Flutterwave Card Test - OTP" FontSize="Subtitle" Margin="4"/>
-            <!--<Entry Placeholder="OTP" HorizontalOptions="Fill" Margin="4"  Keyboard="Numeric" x:Name="OTPEntry"/>-->
+            <Entry Placeholder="OTP" HorizontalOptions="Fill" Margin="4"  Keyboard="Numeric" x:Name="OTPEntry" Text="{x:Binding Cvv}"/>
             <Button Text="Submit OTP" Clicked="OnSubmitOTP"/>
         </StackLayout>
     </Grid>

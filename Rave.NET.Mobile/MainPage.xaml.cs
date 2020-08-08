@@ -32,6 +32,7 @@ namespace Rave.NET.Mobile
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = card;
             CardEntryPanel.IsVisible = true;
             PINEntryPanel.IsVisible = false;
             OTPEntryPanel.IsVisible = false;
