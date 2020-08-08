@@ -50,6 +50,10 @@ namespace Rave.NET.Mobile
             else
             {
                 await DisplayAlert(chargeResult.Status, chargeResult.Message, "OK");
+                CardEntryPanel.IsVisible = true;
+                PINEntryPanel.IsVisible = false;
+                OTPEntryPanel.IsVisible = false;
+
             }
         }
         private async void OnSubmitPIN(object sender, EventArgs e)
@@ -66,6 +70,9 @@ namespace Rave.NET.Mobile
             else
             {
                 await DisplayAlert(chargeResult.Status, chargeResult.Message, "OK");
+                CardEntryPanel.IsVisible = true;
+                PINEntryPanel.IsVisible = false;
+                OTPEntryPanel.IsVisible = false;
             }
         }
 
@@ -77,6 +84,9 @@ namespace Rave.NET.Mobile
             payload.Otp = "12345";
             chargeResult = await cardCharge.Charge(payload);
             await DisplayAlert(chargeResult.Status, chargeResult.Message, "OK");
+            CardEntryPanel.IsVisible = true;
+            PINEntryPanel.IsVisible = false;
+            OTPEntryPanel.IsVisible = false;
         }
     }
 }
