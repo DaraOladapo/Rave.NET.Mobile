@@ -1,11 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" x:Class="Rave.NET.Mobile.MainPage">
+    <ContentPage.Content>
+
     <Grid>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="CardEntryPanel" d:IsVisible="true">
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="CardEntryPanel" d:IsVisible="True">
             <Label Text="Flutterwave Card Test" FontSize="Subtitle" Margin="4"/>
             <Entry Placeholder="1234-1234-1234-1234" HorizontalOptions="Fill" Margin="4" Keyboard="Numeric" Text="{x:Binding CardNo}" x:Name="CardNumberEntry"/>
             <Grid ColumnDefinitions="3*,2*,2*">
@@ -20,10 +22,11 @@
             <Entry Placeholder="PIN" HorizontalOptions="Fill" Margin="4"  Keyboard="Numeric" x:Name="PINEntry" Text="{x:Binding Pin}"/>
             <Button Text="Submit PIN" Clicked="OnSubmitPIN"/>
         </StackLayout>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="OTPEntryPanel" d:IsVisible="false">
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Fill" Margin="12,4" x:Name="OTPEntryPanel" d:IsVisible="False">
             <Label Text="Flutterwave Card Test - OTP" FontSize="Subtitle" Margin="4"/>
             <Entry Placeholder="OTP" HorizontalOptions="Fill" Margin="4"  Keyboard="Numeric" x:Name="OTPEntry" Text="12345"/>
             <Button Text="Submit OTP" Clicked="OnSubmitOTP"/>
         </StackLayout>
     </Grid>
+    </ContentPage.Content>
 </ContentPage>
