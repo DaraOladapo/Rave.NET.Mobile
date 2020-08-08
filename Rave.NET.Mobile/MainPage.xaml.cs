@@ -26,7 +26,7 @@ namespace Rave.NET.Mobile
 
         private static RaveConfig raveConfig = new RaveConfig(PbKey, ScKey, false);
         private static Card card = new Card(CardNumber, ExpiryMonth, ExpiryYear, CVV);
-        private static CardParams payload = new CardParams(PbKey, ScKey, "Anonymous", "Tester", "user@example.com", 50000, "NGN");
+        private static CardParams payload = new CardParams(PbKey, ScKey, "Anonymous", "Tester", "user@example.com", 50000, "NGN", card) { TxRef = tranxRef }; 
         private static ChargeCard cardCharge = new ChargeCard(raveConfig);
 
         public MainPage()
