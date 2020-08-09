@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using Rave.NET;
+﻿using Rave.NET.API;
 using Rave.NET.Models.Card;
 using Rave.NET.Models.Charge;
+using System;
+using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace Rave.NET.Mobile
 {
@@ -28,7 +24,7 @@ namespace Rave.NET.Mobile
         private static Card card = new Card(CardNumber, ExpiryMonth, ExpiryYear, CVV);
         private static CardParams payload = new CardParams(PbKey, ScKey, "Anonymous", "Tester", "user@example.com", 50000, "NGN", card) { TxRef = tranxRef };
         private static ChargeCard cardCharge = new ChargeCard(raveConfig);
-        API.RaveResponse<ResponseData> chargeResult = new API.RaveResponse<ResponseData>();
+        RaveResponse<ResponseData> chargeResult = new API.RaveResponse<ResponseData>();
         public MainPage()
         {
             InitializeComponent();
@@ -80,7 +76,6 @@ namespace Rave.NET.Mobile
         private async void OnSubmitOTP(object sender, EventArgs e)
         {
             payload.SuggestedAuth = "OTP";
-            chargeResult = await cardCharge.Charge(payload);
             payload.Otp = "12345";
             chargeResult = await cardCharge.Charge(payload);
             await DisplayAlert(chargeResult.Status, chargeResult.Message, "OK");
